@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body { font: 13px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; width: 290px; margin: 0; padding: 14px; color: #1f2933; }
+      h1 { font-size: 15px; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+      .dot { width: 10px; height: 10px; border-radius: 50%; background: #9ca3af; }
+      .dot.on { background: #dc2626; animation: pulse 1.2s infinite; }
+      .dot.paused { background: #6b7280; animation: none; }
+      @keyframes pulse { 50% { opacity: .35; } }
+      label { display: block; font-size: 11.5px; color: #6b7280; margin: 8px 0 3px; }
+      select, input, textarea { width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 6px; font: inherit; }
+      textarea { font: 11.5px/1.4 ui-monospace, Menlo, monospace; resize: vertical; }
+      button { width: 100%; margin-top: 12px; padding: 9px; border: none; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; color: #fff; }
+      button:disabled { opacity: .45; cursor: not-allowed; }
+      #start { background: #dc2626; } #stop { background: #374151; } #pause { background: #6b7280; }
+      #saveSettings { background: #1d4ed8; margin-top: 8px; padding: 6px; }
+      .row { display: flex; gap: 6px; } .row button { margin-top: 10px; }
+      .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 12px; }
+      .stat { background: #f3f4f6; border-radius: 6px; padding: 6px 8px; }
+      .stat b { display: block; font-size: 16px; }
+      .server { margin-top: 10px; font-size: 12px; }
+      .ok { color: #047857; } .bad { color: #b91c1c; }
+      .err { color: #b91c1c; font-size: 11.5px; margin-top: 6px; word-break: break-word; }
+      .note { font-size: 11.5px; color: #6b7280; margin-top: 6px; }
+      details { border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; margin-top: 10px; }
+      summary { cursor: pointer; font-weight: 600; font-size: 12px; }
+      .notice { font-size: 12px; } .notice ul { margin: 4px 0; padding-left: 16px; } .notice p { margin: 6px 0 2px; }
+      label.check { display: flex; gap: 6px; align-items: flex-start; color: #1f2933; font-size: 12px; margin: 6px 0 0; }
+      label.check input { width: auto; margin: 2px 0 0; }
+      a { color: #1d4ed8; }
+      .hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <h1><span id="dot" class="dot"></span><span id="heading">Discovery Recorder</span></h1>
+
+    <div id="setup">
+      <details id="noticeBox" open>
+        <summary id="noticeSummary">Before we start: please read</summary>
+        <div class="notice">
+          <p><b>What is recorded</b></p>
+          <ul>
+            <li>Which apps and buttons you click</li>
+            <li>How much you type, but never what you type</li>
+            <li>When you copy and paste between apps</li>
+            <li>Error and warning messages the app shows you (e.g. "invoice already exists")</li>
+            <li>Screenshots of the allowed work sites only, with form fields blacked out</li>
+          </ul>
+          <p><b>What is never recorded</b></p>
+          <ul>
+            <li>The text you type, and passwords</li>
+            <li>Any site that is not on the list below</li>
+          </ul>
+          <p>You can pause at any time (here or with the badge on the page). Results are reported per process, not per
+            person. Raw recordings are deleted after the analysis.</p>
+        </div>
+      </details>
+      <label class="check"><input type="checkbox" id="consent" /> I've read this and agree to be recorded</label>
+
+      <label for="persona">Who is being recorded?</label>
+      <select id="persona">
+        <option value="sara">Sara — senior, fast</option>
+        <option value="omar">Omar — careful</option>
+        <option value="lina">Lina — new</option>
+      </select>
+      <label for="session">Session ID</label>
+      <input id="session" placeholder="lina-01" />
+      <button id="start" disabled>● Start recording</button>
+    </div>
+
+    <div id="running" class="hidden">
+      <div><span id="runLabel">Recording</span> <b id="runSession"></b></div>
+      <div class="stats">
+        <div class="stat"><b id="events">0</b>events</div>
+        <div class="stat"><b id="frames">0</b>screenshots</div>
+        <div class="stat"><b id="time">0:00</b>elapsed</div>
+        <div class="stat"><b id="pending">0</b>waiting to upload</div>
+      </div>
+      <div class="row">
+        <button id="pause">II Pause</button>
+        <button id="stop">■ Stop &amp; save</button>
+      </div>
+    </div>
+
+    <div class="note">Never recorded: what you type, passwords, sites not on the list.</div>
+
+    <details id="privacy">
+      <summary>Privacy settings</summary>
+      <label for="sites">Sites that may be recorded (one per line)</label>
+      <textarea id="sites" rows="3" spellcheck="false" placeholder="http://localhost:5173/*"></textarea>
+      <div class="note">Examples: <code>https://books.zoho.com/*</code>, <code>https://*.example.com/*</code></div>
+      <label class="check"><input type="checkbox" id="screenshots" /> Take screenshots</label>
+      <label class="check"><input type="checkbox" id="redactFields" /> Hide form fields in screenshots</label>
+      <label class="check"><input type="checkbox" id="redactDocuments" /> Also hide documents in screenshots</label>
+      <button id="saveSettings">Save settings</button>
+      <div class="note" id="settingsMsg"></div>
+    </details>
+
+    <div class="server" id="server">Checking server…</div>
+    <div class="err" id="error"></div>
+    <div class="server"><a id="viewLink" href="http://localhost:8000/view" target="_blank">Open recordings checker</a></div>
+    <script src="popup.js"></script>
+  </body>
+</html>

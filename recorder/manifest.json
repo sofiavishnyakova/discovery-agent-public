@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Discovery Recorder",
+  "version": "0.2.0",
+  "description": "With the participant's consent, records clicks, typing (lengths only), copy/paste, app switches and redacted screenshots on allowed work sites.",
+  "permissions": ["tabs", "storage", "webNavigation", "alarms", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html", "default_title": "Discovery Recorder" }
+}

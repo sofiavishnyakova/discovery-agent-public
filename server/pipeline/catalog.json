@@ -1,0 +1,693 @@
+{
+  "version": "2026-10",
+  "about": "Curated, vendor-neutral catalogue of existing tools for finance back-office work. We have no commercial relationship with any vendor listed: no referral fees, no reseller margins. Prices are indicative monthly list prices in AED for a ~5-person finance team, collected in Oct 2026; check with the vendor before deciding. automation_rate is the share of the matching manual time a typical setup removes (an estimate, confirmed by re-measuring after go-live).",
+  "needs": {
+    "invoice_capture": "Reading invoice details (numbers, dates, amounts, PO) and typing or pasting them into the accounting system",
+    "duplicate_check": "Fixing mistakes after the fact: rejected submits, corrections, duplicates and missed checks",
+    "po_matching": "Looking up purchase orders and checking invoices against them",
+    "approval_workflow": "Asking managers for approvals or approval codes, usually by email, and waiting",
+    "email_followup": "Writing and answering routine emails (supplier queries, reminders, chasers)",
+    "spreadsheet_tracking": "Updating tracking spreadsheets by hand",
+    "cross_app_transfer": "Switching between apps and moving the same data from one to another",
+    "review_checking": "A manager checking each item before it goes out (time per item is an assumption until confirmed)"
+  },
+  "stacks": {
+    "microsoft365": "Microsoft 365 (Outlook, Excel, Teams)",
+    "google": "Google Workspace",
+    "zoho": "Zoho",
+    "odoo": "Odoo",
+    "xero": "Xero",
+    "quickbooks": "QuickBooks",
+    "netsuite": "Oracle NetSuite",
+    "sap": "SAP",
+    "oracle": "Oracle ERP",
+    "dynamics": "Microsoft Dynamics 365",
+    "sage": "Sage"
+  },
+  "tools": [
+    {
+      "id": "power-automate",
+      "name": "Microsoft Power Automate",
+      "vendor": "Microsoft",
+      "category": "Workflow automation",
+      "needs": {
+        "approval_workflow": "primary",
+        "cross_app_transfer": "primary",
+        "spreadsheet_tracking": "primary",
+        "email_followup": "partial"
+      },
+      "works_with": [
+        "microsoft365",
+        "dynamics"
+      ],
+      "regions": [
+        "global",
+        "uae",
+        "ksa",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud",
+        "in-country-cloud"
+      ],
+      "included_with": [
+        "microsoft365"
+      ],
+      "price_monthly_aed": 280,
+      "setup_aed": 8000,
+      "setup_weeks": 2,
+      "automation_rate": 0.6,
+      "no_code": true,
+      "note": "Standard approval flows come with most Microsoft 365 plans; premium connectors cost about USD 15 per user a month."
+    },
+    {
+      "id": "ai-builder-invoices",
+      "name": "Microsoft AI Builder (invoice processing)",
+      "vendor": "Microsoft",
+      "category": "Invoice data capture",
+      "needs": {
+        "invoice_capture": "primary",
+        "po_matching": "partial"
+      },
+      "works_with": [
+        "microsoft365",
+        "dynamics"
+      ],
+      "regions": [
+        "global",
+        "uae",
+        "ksa",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud",
+        "in-country-cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 1800,
+      "setup_aed": 15000,
+      "setup_weeks": 4,
+      "automation_rate": 0.7,
+      "no_code": true,
+      "note": "Reads invoice PDFs inside Power Automate flows; billed by AI capacity."
+    },
+    {
+      "id": "power-automate-desktop",
+      "name": "Power Automate Desktop (RPA)",
+      "vendor": "Microsoft",
+      "category": "RPA",
+      "needs": {
+        "cross_app_transfer": "primary",
+        "invoice_capture": "partial",
+        "spreadsheet_tracking": "partial"
+      },
+      "works_with": [
+        "microsoft365"
+      ],
+      "regions": [
+        "global",
+        "uae",
+        "ksa",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud",
+        "on-prem"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 550,
+      "setup_aed": 12000,
+      "setup_weeks": 4,
+      "automation_rate": 0.65,
+      "no_code": false,
+      "note": "Software robot that clicks through apps with no API; unattended bots are licensed per bot."
+    },
+    {
+      "id": "microsoft-copilot",
+      "name": "Microsoft 365 Copilot",
+      "vendor": "Microsoft",
+      "category": "AI assistant",
+      "needs": {
+        "email_followup": "primary",
+        "spreadsheet_tracking": "partial"
+      },
+      "works_with": [
+        "microsoft365"
+      ],
+      "regions": [
+        "global",
+        "uae",
+        "ksa",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud",
+        "in-country-cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 550,
+      "setup_aed": 1500,
+      "setup_weeks": 1,
+      "automation_rate": 0.4,
+      "no_code": true,
+      "note": "Drafts replies and summaries in Outlook; about USD 30 per user a month."
+    },
+    {
+      "id": "zapier",
+      "name": "Zapier",
+      "vendor": "Zapier",
+      "category": "Integration (no-code)",
+      "needs": {
+        "cross_app_transfer": "primary",
+        "spreadsheet_tracking": "primary",
+        "email_followup": "partial",
+        "approval_workflow": "partial"
+      },
+      "works_with": [
+        "microsoft365",
+        "google",
+        "xero",
+        "quickbooks",
+        "zoho",
+        "netsuite"
+      ],
+      "regions": [
+        "global"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 260,
+      "setup_aed": 3000,
+      "setup_weeks": 1,
+      "automation_rate": 0.5,
+      "no_code": true,
+      "note": "Connects web apps that have APIs; hosted in the US."
+    },
+    {
+      "id": "make",
+      "name": "Make",
+      "vendor": "Make (Celonis)",
+      "category": "Integration (no-code)",
+      "needs": {
+        "cross_app_transfer": "primary",
+        "spreadsheet_tracking": "primary",
+        "email_followup": "partial",
+        "approval_workflow": "partial"
+      },
+      "works_with": [
+        "microsoft365",
+        "google",
+        "xero",
+        "quickbooks",
+        "zoho",
+        "netsuite",
+        "odoo"
+      ],
+      "regions": [
+        "global"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 75,
+      "setup_aed": 3000,
+      "setup_weeks": 1,
+      "automation_rate": 0.5,
+      "no_code": true,
+      "note": "Visual scenario builder; hosted in the EU or US."
+    },
+    {
+      "id": "n8n",
+      "name": "n8n",
+      "vendor": "n8n",
+      "category": "Integration (low-code)",
+      "needs": {
+        "cross_app_transfer": "primary",
+        "spreadsheet_tracking": "primary",
+        "email_followup": "partial",
+        "approval_workflow": "partial"
+      },
+      "works_with": [
+        "microsoft365",
+        "google",
+        "xero",
+        "quickbooks",
+        "zoho",
+        "odoo",
+        "netsuite"
+      ],
+      "regions": [
+        "global"
+      ],
+      "hosting": [
+        "cloud",
+        "on-prem"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 100,
+      "setup_aed": 6000,
+      "setup_weeks": 2,
+      "automation_rate": 0.5,
+      "no_code": false,
+      "note": "Can be self-hosted inside your own network, so data never leaves it."
+    },
+    {
+      "id": "uipath",
+      "name": "UiPath (RPA + Document Understanding)",
+      "vendor": "UiPath",
+      "category": "RPA",
+      "needs": {
+        "cross_app_transfer": "primary",
+        "invoice_capture": "primary",
+        "spreadsheet_tracking": "primary",
+        "email_followup": "partial"
+      },
+      "works_with": [
+        "sap",
+        "oracle",
+        "microsoft365",
+        "dynamics",
+        "netsuite"
+      ],
+      "regions": [
+        "global",
+        "uae",
+        "ksa",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud",
+        "on-prem"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 2500,
+      "setup_aed": 40000,
+      "setup_weeks": 8,
+      "automation_rate": 0.7,
+      "no_code": false,
+      "note": "Enterprise robots for legacy and desktop apps; usually needs an implementation partner."
+    },
+    {
+      "id": "dext",
+      "name": "Dext Prepare",
+      "vendor": "Dext",
+      "category": "Invoice data capture",
+      "needs": {
+        "invoice_capture": "primary",
+        "duplicate_check": "partial",
+        "review_checking": "partial"
+      },
+      "works_with": [
+        "xero",
+        "quickbooks",
+        "sage",
+        "netsuite"
+      ],
+      "regions": [
+        "global",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 300,
+      "setup_aed": 2000,
+      "setup_weeks": 1,
+      "automation_rate": 0.7,
+      "no_code": true,
+      "note": "Extracts invoice and receipt data and flags likely duplicates; publishes into the big cloud ledgers."
+    },
+    {
+      "id": "nanonets",
+      "name": "Nanonets",
+      "vendor": "Nanonets",
+      "category": "Invoice data capture",
+      "needs": {
+        "invoice_capture": "primary",
+        "po_matching": "partial"
+      },
+      "works_with": [
+        "quickbooks",
+        "xero",
+        "netsuite",
+        "sap",
+        "microsoft365"
+      ],
+      "regions": [
+        "global"
+      ],
+      "hosting": [
+        "cloud",
+        "on-prem"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 1800,
+      "setup_aed": 5000,
+      "setup_weeks": 2,
+      "automation_rate": 0.7,
+      "no_code": true,
+      "note": "AI document extraction with approval steps; an on-premises option exists for enterprise plans."
+    },
+    {
+      "id": "rossum",
+      "name": "Rossum",
+      "vendor": "Rossum",
+      "category": "Invoice data capture",
+      "needs": {
+        "invoice_capture": "primary",
+        "duplicate_check": "partial",
+        "po_matching": "partial",
+        "review_checking": "partial"
+      },
+      "works_with": [
+        "sap",
+        "oracle",
+        "netsuite",
+        "dynamics"
+      ],
+      "regions": [
+        "global",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 5500,
+      "setup_aed": 40000,
+      "setup_weeks": 6,
+      "automation_rate": 0.8,
+      "no_code": false,
+      "note": "High-accuracy capture for large invoice volumes."
+    },
+    {
+      "id": "stampli",
+      "name": "Stampli",
+      "vendor": "Stampli",
+      "category": "AP automation",
+      "needs": {
+        "invoice_capture": "primary",
+        "approval_workflow": "primary",
+        "duplicate_check": "primary",
+        "po_matching": "primary",
+        "review_checking": "primary"
+      },
+      "works_with": [
+        "netsuite",
+        "sap",
+        "oracle",
+        "dynamics",
+        "quickbooks",
+        "sage"
+      ],
+      "regions": [
+        "global"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 3500,
+      "setup_aed": 15000,
+      "setup_weeks": 6,
+      "automation_rate": 0.75,
+      "no_code": true,
+      "note": "End-to-end invoice capture, approvals and duplicate checks on top of your ERP; strongest in North America."
+    },
+    {
+      "id": "tipalti",
+      "name": "Tipalti",
+      "vendor": "Tipalti",
+      "category": "AP automation",
+      "needs": {
+        "invoice_capture": "primary",
+        "approval_workflow": "primary",
+        "duplicate_check": "primary",
+        "po_matching": "primary",
+        "review_checking": "primary"
+      },
+      "works_with": [
+        "netsuite",
+        "sap",
+        "dynamics",
+        "quickbooks",
+        "xero",
+        "sage"
+      ],
+      "regions": [
+        "global",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 1500,
+      "setup_aed": 15000,
+      "setup_weeks": 8,
+      "automation_rate": 0.75,
+      "no_code": true,
+      "note": "AP automation plus global supplier payments."
+    },
+    {
+      "id": "yooz",
+      "name": "Yooz",
+      "vendor": "Yooz",
+      "category": "AP automation",
+      "needs": {
+        "invoice_capture": "primary",
+        "approval_workflow": "primary",
+        "duplicate_check": "primary",
+        "po_matching": "partial",
+        "review_checking": "primary"
+      },
+      "works_with": [
+        "sage",
+        "quickbooks",
+        "netsuite",
+        "sap",
+        "dynamics",
+        "xero"
+      ],
+      "regions": [
+        "global",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 1200,
+      "setup_aed": 8000,
+      "setup_weeks": 4,
+      "automation_rate": 0.7,
+      "no_code": true,
+      "note": "Mid-market AP automation with duplicate detection."
+    },
+    {
+      "id": "zoho-books",
+      "name": "Zoho Books",
+      "vendor": "Zoho",
+      "category": "Accounting system",
+      "needs": {
+        "approval_workflow": "primary",
+        "po_matching": "primary",
+        "invoice_capture": "partial",
+        "duplicate_check": "partial",
+        "review_checking": "partial"
+      },
+      "works_with": [
+        "zoho",
+        "microsoft365",
+        "google"
+      ],
+      "regions": [
+        "uae",
+        "ksa",
+        "global"
+      ],
+      "hosting": [
+        "cloud",
+        "in-country-cloud"
+      ],
+      "included_with": [
+        "zoho"
+      ],
+      "price_monthly_aed": 250,
+      "setup_aed": 12000,
+      "setup_weeks": 6,
+      "automation_rate": 0.55,
+      "no_code": true,
+      "note": "Replaces your accounting system: a bigger change. UAE VAT support; built-in bill approvals and PO matching."
+    },
+    {
+      "id": "odoo",
+      "name": "Odoo Accounting",
+      "vendor": "Odoo",
+      "category": "Accounting system",
+      "needs": {
+        "invoice_capture": "primary",
+        "po_matching": "primary",
+        "approval_workflow": "partial",
+        "duplicate_check": "partial",
+        "review_checking": "partial"
+      },
+      "works_with": [
+        "odoo"
+      ],
+      "regions": [
+        "uae",
+        "ksa",
+        "global"
+      ],
+      "hosting": [
+        "cloud",
+        "on-prem"
+      ],
+      "included_with": [
+        "odoo"
+      ],
+      "price_monthly_aed": 450,
+      "setup_aed": 30000,
+      "setup_weeks": 10,
+      "automation_rate": 0.6,
+      "no_code": false,
+      "note": "Replaces your accounting system: a bigger change. Invoice OCR and PO matching built in; can be self-hosted."
+    },
+    {
+      "id": "wafeq",
+      "name": "Wafeq",
+      "vendor": "Wafeq",
+      "category": "Accounting system",
+      "needs": {
+        "invoice_capture": "partial",
+        "approval_workflow": "partial",
+        "duplicate_check": "partial"
+      },
+      "works_with": [],
+      "regions": [
+        "uae",
+        "ksa"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 250,
+      "setup_aed": 8000,
+      "setup_weeks": 6,
+      "automation_rate": 0.5,
+      "no_code": true,
+      "note": "Replaces your accounting system: a bigger change. Built for UAE and Saudi VAT and e-invoicing."
+    },
+    {
+      "id": "payhawk",
+      "name": "Payhawk",
+      "vendor": "Payhawk",
+      "category": "Spend management",
+      "needs": {
+        "approval_workflow": "primary",
+        "invoice_capture": "partial",
+        "duplicate_check": "partial",
+        "review_checking": "partial"
+      },
+      "works_with": [
+        "netsuite",
+        "xero",
+        "quickbooks",
+        "sap",
+        "dynamics",
+        "odoo"
+      ],
+      "regions": [
+        "uae",
+        "ksa",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 1000,
+      "setup_aed": 3000,
+      "setup_weeks": 2,
+      "automation_rate": 0.55,
+      "no_code": true,
+      "note": "Bill approvals and payments with cards and expenses in one place."
+    },
+    {
+      "id": "pemo",
+      "name": "Pemo",
+      "vendor": "Pemo",
+      "category": "Spend management",
+      "needs": {
+        "approval_workflow": "partial",
+        "invoice_capture": "partial"
+      },
+      "works_with": [
+        "xero",
+        "quickbooks",
+        "zoho",
+        "netsuite"
+      ],
+      "regions": [
+        "uae",
+        "ksa"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 500,
+      "setup_aed": 2000,
+      "setup_weeks": 1,
+      "automation_rate": 0.45,
+      "no_code": true,
+      "note": "UAE spend management with bill approvals."
+    },
+    {
+      "id": "google-gemini",
+      "name": "Gemini for Google Workspace",
+      "vendor": "Google",
+      "category": "AI assistant",
+      "needs": {
+        "email_followup": "primary",
+        "spreadsheet_tracking": "partial"
+      },
+      "works_with": [
+        "google"
+      ],
+      "regions": [
+        "global",
+        "uae",
+        "ksa",
+        "uk",
+        "eu"
+      ],
+      "hosting": [
+        "cloud"
+      ],
+      "included_with": [],
+      "price_monthly_aed": 400,
+      "setup_aed": 1000,
+      "setup_weeks": 1,
+      "automation_rate": 0.35,
+      "no_code": true,
+      "note": "Drafts and summarises emails in Gmail."
+    }
+  ]
+}
